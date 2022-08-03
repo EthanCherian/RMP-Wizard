@@ -12,7 +12,7 @@
       * Code for question mark often evades previous line, so remove it here
     * Remove links, phone numbers, and email addresses
     * Remove any characters that are not letters (uppercase or lowercase) or spaces
-    * Remove any numbers with more than 4 digits **uhh, shouldn't this happen before above lol**
+    * Remove any numbers with more than 4 digits **!!uhh, shouldn't this happen before above!!**
     * Remove any extraneous spaces created by above steps
     * Lowercase entire comment
 4. Not quite sure to what extent we want to do this, but list of stopwords provided by spaCy includes some words we want to keep, so ensure those words remain by amending `STOP_WORDS` here
