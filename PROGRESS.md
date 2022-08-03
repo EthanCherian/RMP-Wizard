@@ -4,7 +4,7 @@
 
 **preprocessing.ipynb**
 
-1. Read scraped comments CSV file and parse dates so `'date'` column has type `datetime64` rather than `object` (aka `string`)
+1. Read [scraped comments CSV](https://rmp-bucket.s3.amazonaws.com/scraped_comments.csv "full CSV file for download") file and parse dates so `'date'` column has type `datetime64` rather than `object` (aka `string`)
 2. Drop reviews with: empty comments, comments consisting of string `"No Comments"`, or comments with 5 or fewer words
     * Reset indices of dataframe as well, dropping these will leave gaps in indices that can cause problems in following steps
 3.  *Regex Stuff*, mostly courtesy of Dien, performed on each comment in dataframe
