@@ -2,7 +2,7 @@
 ---
 ## Preprocessing ##
 
-**preprocessing.ipynb**
+**`preprocessing.ipynb`**
 
 1. Read [scraped comments CSV](https://rmp-bucket.s3.amazonaws.com/scraped_comments.csv "full CSV file for download") file and parse dates so `'date'` column has type `datetime64` rather than `object` (aka `string`)
 2. Drop reviews with: empty comments, comments consisting of string `"No Comments"`, or comments with 5 or fewer words
@@ -32,3 +32,10 @@ For a slightly less optimal version of this code, step *5* took ~4 hours to run 
 ---
 
 ## Models
+
+1. **Naive Bayes** :: `models/naive-bayes.ipynb`
+    * Use Multinomial Naive Bayes
+2. **Logistic Regression** :: `models/log-reg.ipynb`
+    * Use Logistic Regression
+3. **Random Forest** :: `models/random-forest.ipynb`
+    * Use Random Forest
