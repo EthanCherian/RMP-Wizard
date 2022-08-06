@@ -33,8 +33,10 @@ For a slightly less optimal version of this code, step *5* took ~4 hours to run 
 
 ## Models
 
+For all models, train size was set to 80%, test to 20%
+
 1. **Naive Bayes** :: `models/naive-bayes.ipynb`
-    * Use Multinomial Naive Bayes
+    * Use Multinomial Naive Bayes based on unigrams, bigrams, and unigrams and bigrams to predict sentiment
 2. **Logistic Regression** :: `models/log-reg.ipynb`
     * Use Logistic Regression
 3. **Random Forest** :: `models/random-forest.ipynb`
