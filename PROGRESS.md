@@ -30,11 +30,34 @@
 
 ## Models
 
-For all models, train size was set to 80%, test to 20%
+For all models, train size was set to 80%, test to 20%. Used 200k random sample of dataset.
 
-1. **Naive Bayes** :: `models/naive-bayes.ipynb`
-    * Use Multinomial Naive Bayes based on unigrams, bigrams, and unigrams and bigrams to predict sentiment
-2. **Logistic Regression** :: `models/log-reg.ipynb`
-    * Use Logistic Regression
-3. **Random Forest** :: `models/random-forest.ipynb`
-    * Use Random Forest
+Model performance was evaluated on unigram features, bigram features, and features consisting of both unigrams and bigrams.
+
+### Naive Bayes
+
+All models used 4000 max features for sake of time efficiency
+
+|                | Accuracy | F1 Score |
+|----------------|----------|----------|
+| Unigram        | 85.54214 | 85.58620 |
+| Bigram         | 83.73709 | 83.58267 |
+| Unigram+Bigram | 85.80465 | 86.11170 |
+
+### Logistic Regression
+
+All models used `k=1` (selected top result), as when `k=2`, accuracy was always 100
+
+| Feature Repr. | Feature Type   | Accuracy | MRR      |
+|---------------|----------------|----------|----------|
+| Binary        | Unigram        | 86.15345 | 86.15345 |
+|               | Bigram         | 85.39942 | 85.39942 |
+|---------------| Unigram+Bigram | 87.24949 | 87.24949 |
+| Count         | Unigram        | 86.57946 | 86.57946 |
+|               | Bigram         | 84.07936 | 84.07936 |
+|---------------| Unigram+Bigram | 87.42350 | 87.42350 |
+| TF-IDF        | Unigram        | 86.57946 | 86.57946 |
+|               | Bigram         | 84.07936 | 84.07936 |
+|---------------| Unigram+Bigram | 87.42350 | 87.42350 |
+
+For some reason, accuracy and MRR are always equal. Also, count and TF-IDF are identical
