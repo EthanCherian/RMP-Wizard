@@ -60,4 +60,15 @@ All models used `k=1` (selected top result), as when `k=2`, accuracy was always 
 |               | Bigram         | 84.07936 | 84.07936 |
 |---------------| Unigram+Bigram | 87.42350 | 87.42350 |
 
-For some reason, accuracy and MRR are always equal. Also, count and TF-IDF are identical
+Accuracy and MRR are always equal, and there's no difference between Count and TF-IDF.
+
+### Random Forest
+
+The most complicated model type, and by far the most resource intensive. To that end, I was only able to run RF model based on unigrams and had to settle for a 50k sample. I'll keep trying the others, but I'm not sure if this is a good use of my time tbh.
+
+| Max Depth | # Estimators | Accuracy | F1 Score |
+|-----------|--------------|----------|----------|
+| 20        | 50           | 74.46745 | 64.25268 |
+|           | 100          | 73.90739 | 62.92680 |
+| None      | 50           | 83.97840 | 82.53333 |
+|           | 100          | 83.65837 | 81.93426 |
