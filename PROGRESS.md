@@ -92,3 +92,29 @@ The most complicated model type, and by far the most resource intensive. To that
 |           | 100          | 73.90739 | 62.92680 |
 | None      | 50           | 83.97840 | 82.53333 |
 |           | 100          | 83.65837 | 81.93426 |
+
+---
+
+## Attempts
+
+### Attempt 1
+
+**`attempts/pausers.ipnyb`**
+
+Constraints:
+
+* Took 15k sample (I believe I'm limited by laptop specs Sadge)
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used chi squared for selecting the top quarter of relevant features
+
+Got some pretty good results, but small sample size has me worried tbh
+
+| Accuracy | F1 Score |
+| -------- | -------- |
+| 91.21246 | 90.74001 |
