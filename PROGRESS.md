@@ -44,6 +44,18 @@ All models used 4000 max features for sake of time efficiency
 | Bigram         | 83.73709 | 83.58267 |
 | Unigram+Bigram | 85.80465 | 86.11170 |
 
+#### After using Chi Squared for feature selection
+
+Select top 25% of features in 20k sample
+
+|                | Accuracy | F1 Score |
+|----------------|----------|----------|
+| Unigram        | 87.16000 | 87.11392 |
+| Bigram         | 81.80000 | 78.78603 |
+| Unigram+Bigram | 90.17500 | 89.56781 |
+
+We finally pass 90% accuracy :)
+
 ### Logistic Regression
 
 All models used `k=1` (selected top result), as when `k=2`, accuracy was always 100
