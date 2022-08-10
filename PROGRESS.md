@@ -36,6 +36,8 @@ Model performance was evaluated on unigram features, bigram features, and featur
 
 ### Naive Bayes
 
+**`Models/naive-bayes.ipynb`**
+
 All models used 4000 max features for sake of time efficiency
 
 |                | Accuracy | F1 Score |
@@ -45,6 +47,8 @@ All models used 4000 max features for sake of time efficiency
 | Unigram+Bigram | 85.80465 | 86.11170 |
 
 #### After using Chi Squared for feature selection
+
+**`Models/chi-squared.ipynb`**
 
 Select top 25% of features in 20k sample
 
@@ -57,6 +61,8 @@ Select top 25% of features in 20k sample
 We finally pass 90% accuracy :)
 
 ### Logistic Regression
+
+**`Models/log-reg.ipynb`**
 
 All models used `k=1` (selected top result), as when `k=2`, accuracy was always 100
 
@@ -75,6 +81,8 @@ All models used `k=1` (selected top result), as when `k=2`, accuracy was always 
 Accuracy and MRR are always equal, and there's no difference between Count and TF-IDF.
 
 ### Random Forest
+
+**`Models/random-forest.ipynb`**
 
 The most complicated model type, and by far the most resource intensive. To that end, I was only able to run RF model based on unigrams and had to settle for a 50k sample. I'll keep trying the others, but I'm not sure if this is a good use of my time tbh.
 
