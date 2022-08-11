@@ -143,3 +143,22 @@ Constraints:
 Not-insignificant decrease, but to be somewhat expected considering the lack of feature selection. Next try will incorporate chi squared to that end.
 
 ### Attempt 3
+
+**`attempts/attempt-3.ipynb`**
+
+* Took 15k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used *professor-based* train-test split
+* Used chi squared for selecting the top quarter of relevant features
+
+| Accuracy | F1 Score |
+| -------- | -------- |
+| 93.44046 | 93.22968 |
+
+Our best performance by a good bit~
