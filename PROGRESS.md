@@ -113,8 +113,33 @@ Constraints:
 * Used features consisting of both unigrams and bigrams
 * Used chi squared for selecting the top quarter of relevant features
 
-Got some pretty good results, but small sample size has me worried tbh
-
 | Accuracy | F1 Score |
 | -------- | -------- |
 | 91.21246 | 90.74001 |
+
+Got some pretty good results, but small sample size has me worried tbh
+
+### Attempt 2
+
+**`attempts/attempt-2.ipynb`**
+
+Constraints:
+
+* Took 15k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used *professor-based* train-test split
+* `CountVectorizer` limited to 5k features
+
+| Accuracy | F1 Score |
+| -------- | -------- |
+| 87.86168 | 88.24339 |
+
+Not-insignificant decrease, but to be somewhat expected considering the lack of feature selection. Next try will incorporate chi squared to that end.
+
+### Attempt 3
