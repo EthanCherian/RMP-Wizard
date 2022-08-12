@@ -154,7 +154,7 @@ Not-insignificant decrease, but to be somewhat expected considering the lack of 
   * Replace any triple occurence with a single
   * Lowercase comment
 * Used features consisting of both unigrams and bigrams
-* Used *professor-based* train-test split
+* Used professor-based train-test split
 * Used chi squared for selecting the top quarter of relevant features
 
 | Accuracy | F1 Score |
@@ -162,3 +162,25 @@ Not-insignificant decrease, but to be somewhat expected considering the lack of 
 | 93.44046 | 93.22968 |
 
 Our best performance by a good bit~
+
+### Attempt 4
+
+**`attempts/attempt-4.ipynb`**
+
+* Took 25k sample
+* Performed almost full preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * *Lemmatize and remove stopwords*
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top quarter of relevant features
+
+| Accuracy | F1 Score |
+| -------- | -------- |
+| 91.29066 | 90.63802 |
+
+Hmmmm...
