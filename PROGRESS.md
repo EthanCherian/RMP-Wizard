@@ -184,3 +184,26 @@ Our best performance by a good bit~
 | 91.29066 | 90.63802 |
 
 Hmmmm...
+
+### Attempt 5
+
+**`attempts/attempt-5.ipynb`**
+
+* Took 15k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top quarter of relevant features
+* *Used average of `helpfulRating` and `clarityRating`* columns to determine actual star value
+  * Sentiment based on this average instead
+
+| Accuracy | F1 Score |
+| -------- | -------- |
+| 93.76185 | 93.58414 |
+
+Effectively same as `attempt-3`, with which it shares most attributes. The logical conclusion, then, is that determining the actual star value (via averaging) doesn't significantly improve the model.
