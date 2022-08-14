@@ -157,9 +157,10 @@ Not-insignificant decrease, but to be somewhat expected considering the lack of 
 * Used professor-based train-test split
 * Used chi squared for selecting the top quarter of relevant features
 
-| Accuracy | F1 Score |
-| -------- | -------- |
-| 93.44046 | 93.22968 |
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 93.44046 | 93.22968 |
+| Original scrape | 86.29621 | 85.30637 |
 
 Our best performance by a good bit~
 
@@ -189,7 +190,7 @@ Hmmmm...
 
 **`attempts/attempt-5.ipynb`**
 
-* Took 15k sample
+* Took 25k sample
 * Performed barebones preprocessing
   * Drop empty comments or comments with relatively few words
   * Remove HTML codes, URLs, phone numbers, and email addresses
@@ -202,8 +203,34 @@ Hmmmm...
 * *Used average of `helpfulRating` and `clarityRating`* columns to determine actual star value
   * Sentiment based on this average instead
 
-| Accuracy | F1 Score |
-| -------- | -------- |
-| 93.76185 | 93.58414 |
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 93.76185 | 93.58414 |
+| Original scrape | 87.27402 | 86.51325 |
 
 Effectively same as `attempt-3`, with which it shares most attributes. The logical conclusion, then, is that determining the actual star value (via averaging) doesn't significantly improve the model.
+
+### Attempt 6
+
+**`attempts/attempt-6.ipynb`**
+
+* Took 25k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top quarter of relevant features
+* Used average of `helpfulRating` and `clarityRating` columns to determine actual star value
+  * Sentiment based on this average instead
+* Dropped 3 star reviews
+
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 94.92477 | 94.80281 |
+| Original scrape | 88.40393 | 88.02801 |
+
+Best yet, but only marginally, and I'm honestly not convinced that removing middling reviews will be beneficial in the long run.
