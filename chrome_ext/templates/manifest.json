@@ -1,0 +1,35 @@
+{
+    "name": "Rate My Professor Analyzer",
+    "description": "To predict whether the reviews are real or fake based on the Rate My Professor dataset",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["storage", "activeTab", "scripting"],
+    "icons": {
+        "16": "/images/hat_16.png",
+        "32": "/images/hat_32.png",
+        "48": "/images/hat_48.png",
+        "128": "/images/hat_128.png"
+    },
+    // "background": {
+    //     "service_worker": "background.js"
+    // },
+    "action": {
+        "default_icon": {
+            "16": "/images/hat_16.png",
+            "32": "/images/hat_32.png",
+            "48": "/images/hat_48.png",
+            "128": "/images/hat_128.png"
+        },
+        "default_popup": "popup.html",
+        "default_title": "Generate Sentiment"
+    },
+    // "content_security_policy": {
+    //     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' ajax.googleapis.com"
+    // },
+    "content_scripts": [{
+        "matches": ["https://www.ratemyprofessors.com/*"],
+        "js": ["jquery/jquery-3.6.0.js", "content.js"]
+    }]
+
+
+}
