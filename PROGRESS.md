@@ -236,3 +236,29 @@ Effectively same as `attempt-3`, with which it shares most attributes. The logic
 | Original scrape | 88.40393 | 88.02801 |
 
 Best yet, but only marginally, and I'm honestly not convinced that removing middling reviews will be beneficial in the long run. In the interest of time, this may be the model that we end up running with, though I'm sure we'll eventually find ways to improve it.
+
+### Attempt 7
+
+[**`attempts/log-reg-attempt.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/log-reg-attempt.ipynb "Logistic regression attempt")
+
+* Took 25k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top quarter of relevant features
+* Used average of `helpfulRating` and `clarityRating` columns to determine actual star value
+  * Sentiment based on this average instead
+* Dropped 3 star reviews
+* *Used logistic regression model rather than naive bayes as all previous attempts have*
+
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 91.53380 | 91.35359 |
+| Original scrape | 87.94975 | 87.80400 |
+
+It was worth trying logistic regression, and tbh its accuracy on originally scraped data is admirable. That said, the drop in accuracy on test data is discouraging and means it probably won't get used that much lol.
