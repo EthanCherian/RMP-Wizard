@@ -2,7 +2,7 @@
 ---
 ## Preprocessing ##
 
-**`preprocessing.ipynb`**
+[**`preprocessing.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/preprocessing.ipynb "preprocessing")
 
 1. Read [scraped comments CSV](https://rmp-bucket.s3.amazonaws.com/scraped_comments.csv "full CSV file for download") file and parse dates so `'date'` column has type `datetime64` rather than `object` (aka `string`)
 2. Drop reviews with: empty comments, comments consisting of string `"No Comments"`, or comments with 5 or fewer words
@@ -36,7 +36,7 @@ Model performance was evaluated on unigram features, bigram features, and featur
 
 ### Naive Bayes
 
-**`Models/naive-bayes.ipynb`**
+[**`Models/naive-bayes.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/Models/naive-bayes.ipynb "Naive Bayes model")
 
 All models used 4000 max features for sake of time efficiency
 
@@ -48,7 +48,7 @@ All models used 4000 max features for sake of time efficiency
 
 #### After using Chi Squared for feature selection
 
-**`Models/chi-squared.ipynb`**
+[**`Models/chi-squared.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/Models/chi-squared.ipynb "Naive Bayes + Chi Squared")
 
 Select top 25% of features in 20k sample
 
@@ -62,7 +62,7 @@ We finally pass 90% accuracy :)
 
 ### Logistic Regression
 
-**`Models/log-reg.ipynb`**
+[**`Models/log-reg.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/Models/log-reg.ipynb "Logistic Regression Model")
 
 All models used `k=1` (selected top result), as when `k=2`, accuracy was always 100
 
@@ -82,7 +82,7 @@ Accuracy and MRR are always equal, and there's no difference between Count and T
 
 ### Random Forest
 
-**`Models/random-forest.ipynb`**
+[**`Models/random-forest.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/Models/random-forest.ipynb "Random Forest Model (limited)")
 
 The most complicated model type, and by far the most resource intensive. To that end, I was only able to run RF model based on unigrams and had to settle for a 50k sample. I'll keep trying the others, but I'm not sure if this is a good use of my time tbh.
 
@@ -97,13 +97,15 @@ The most complicated model type, and by far the most resource intensive. To that
 
 ## Attempts
 
+All attempts save for the first were run using a separate scrape of comments that allowed for splitting by professor. To test for overfitting, the best models were additionally run on a sample from the original scrape as well. This was accomplished in [`pred-test.ipynb`](https://github.com/EthanCherian/RMP/blob/main/pred-test.ipynb), and results are shown when applicable.
+
 ### Attempt 1
 
-**`attempts/pausers.ipnyb`**
+[**`attempts/pausers.ipnyb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/pausers.ipynb "First attempt")
 
 Constraints:
 
-* Took 15k sample (I believe I'm limited by laptop specs Sadge)
+* Took 15k sample
 * Performed barebones preprocessing
   * Drop empty comments or comments with relatively few words
   * Remove HTML codes, URLs, phone numbers, and email addresses
@@ -121,7 +123,7 @@ Got some pretty good results, but small sample size has me worried tbh
 
 ### Attempt 2
 
-**`attempts/attempt-2.ipynb`**
+[**`attempts/attempt-2.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-2.ipynb "Second attempt")
 
 Constraints:
 
@@ -140,11 +142,11 @@ Constraints:
 | -------- | -------- |
 | 87.86168 | 88.24339 |
 
-Not-insignificant decrease, but to be somewhat expected considering the lack of feature selection. Next try will incorporate chi squared to that end.
+Not-insignificant decrease, but to be somewhat expected considering the lack of feature selection. Next try will incorporate chi squared to show thusly.
 
 ### Attempt 3
 
-**`attempts/attempt-3.ipynb`**
+[**`attempts/attempt-3.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-3.ipynb "Third attempt")
 
 * Took 15k sample
 * Performed barebones preprocessing
@@ -166,7 +168,7 @@ Our best performance by a good bit~
 
 ### Attempt 4
 
-**`attempts/attempt-4.ipynb`**
+[**`attempts/attempt-4.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-4.ipynb "Fourth attempt")
 
 * Took 25k sample
 * Performed almost full preprocessing
@@ -184,11 +186,11 @@ Our best performance by a good bit~
 | -------- | -------- |
 | 91.29066 | 90.63802 |
 
-Hmmmm...
+For some reason, full preprocessing actually worsens our model, which doesn't make sense based on how NLP is supposed to work. This requires further investigation...
 
 ### Attempt 5
 
-**`attempts/attempt-5.ipynb`**
+[**`attempts/attempt-5.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-5.ipynb "Fifth attempt")
 
 * Took 25k sample
 * Performed barebones preprocessing
@@ -212,7 +214,7 @@ Effectively same as `attempt-3`, with which it shares most attributes. The logic
 
 ### Attempt 6
 
-**`attempts/attempt-6.ipynb`**
+[**`attempts/attempt-6.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-6.ipynb "Sixth (last?) attempt")
 
 * Took 25k sample
 * Performed barebones preprocessing
@@ -226,11 +228,11 @@ Effectively same as `attempt-3`, with which it shares most attributes. The logic
 * Used chi squared for selecting the top quarter of relevant features
 * Used average of `helpfulRating` and `clarityRating` columns to determine actual star value
   * Sentiment based on this average instead
-* Dropped 3 star reviews
+* *Dropped 3 star reviews*
 
 | Input data from | Accuracy | F1 Score |
 |:---------------:|----------|----------|
 | New scrape      | 94.92477 | 94.80281 |
 | Original scrape | 88.40393 | 88.02801 |
 
-Best yet, but only marginally, and I'm honestly not convinced that removing middling reviews will be beneficial in the long run.
+Best yet, but only marginally, and I'm honestly not convinced that removing middling reviews will be beneficial in the long run. In the interest of time, this may be the model that we end up running with, though I'm sure we'll eventually find ways to improve it.
