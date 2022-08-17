@@ -93,6 +93,20 @@ The most complicated model type, and by far the most resource intensive. To that
 | None      | 50           | 83.97840 | 82.53333 |
 |           | 100          | 83.65837 | 81.93426 |
 
+### Support Vector Machine (SVM)
+
+[**`Models/svm-ipynb`**](https://github.com/EthanCherian/RMP/blob/main/Models/svm.ipynb "Support Vector Machine model")
+
+Used TF-IDF vectorization with 7000 max features on 200k sample.
+
+|                | Accuracy | F1 Score |
+|----------------|----------|----------|
+| Unigram        | 86.66683 | 91.13486 |
+| Bigram         | 84.87174 | 90.16018 |
+| Unigram+Bigram | 87.63938 | 91.73465 |
+
+Thoroughly unimpressive results honestly :/
+
 ---
 
 ## Attempts
@@ -262,3 +276,29 @@ Best yet, but only marginally, and I'm honestly not convinced that removing midd
 | Original scrape | 87.94975 | 87.80400 |
 
 It was worth trying logistic regression, and tbh its accuracy on originally scraped data is admirable. That said, the drop in accuracy on test data is discouraging and means it probably won't get used that much lol.
+
+### Attempt 8
+
+[**`attempts/svm-attempt.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/svm-attempt.ipynb "SVM attempt")
+
+* Took 20k sample
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top quarter of relevant features
+* Used average of `helpfulRating` and `clarityRating` columns to determine actual star value
+  * Sentiment based on this average instead
+* Dropped 3 star reviews
+* *Used SVM model*
+
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 91.94856 | 91.65182 |
+| Original scrape | 89.74018 | 89.42577 |
+
+Yooo, SVM seems to result in the lowest amount of overfitting, resulting in a better performance on data from the original scrape. BUT, its performance in testing is not great, outperformed pretty handily by most serious naive bayes attempts.
