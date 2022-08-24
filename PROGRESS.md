@@ -302,3 +302,30 @@ It was worth trying logistic regression, and tbh its accuracy on originally scra
 | Original scrape | 89.74018 | 89.42577 |
 
 Yooo, SVM seems to result in the lowest amount of overfitting, resulting in a better performance on data from the original scrape. BUT, its performance in testing is not great, outperformed pretty handily by most serious naive bayes attempts.
+
+### Attempt 9
+
+[**`attempts/attempt-9.ipynb`**](https://github.com/EthanCherian/RMP/blob/main/attempts/attempt-9.ipynb "Attempt 9")
+
+* *Took entire dataset (~470k)*
+* Performed barebones preprocessing
+  * Drop empty comments or comments with relatively few words
+  * Remove HTML codes, URLs, phone numbers, and email addresses
+  * Remove non-alphabetic characters
+  * Replace any triple occurence with a single
+  * Lowercase comment
+* Used features consisting of both unigrams and bigrams
+* Used professor-based train-test split
+* Used chi squared for selecting the top *half* of relevant features
+* Used average of `helpfulRating` and `clarityRating` columns to determine actual star value
+  * Sentiment based on this average instead
+* Dropped 3 star reviews
+* *Implemented pipeline module to improve time and space efficiency*
+* *Eliminated previously-present data leakage in model training*
+
+| Input data from | Accuracy | F1 Score |
+|:---------------:|----------|----------|
+| New scrape      | 93.42164 | 93.41522 |
+| Original scrape | 91.63063 | 91.63359 |
+
+Not insignificant decrease in testing performance from best (`attempt-6.ipynb`), but minimizing overfitting on original scrape data is kinda sick ngl
