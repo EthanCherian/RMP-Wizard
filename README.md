@@ -7,7 +7,7 @@ We are students at Texas A&M University, mostly studying Computer Science, who d
 ### Why did we decide to do this?
 As college students, we noticed a few features missing from the Rate My Professors (RMP) website that we thought we could take upon ourselves to implement. We quickly realized, however, the depth of interesting things that could be done with such a robust and relatively untapped dataset. 
 ### What is it we've done here?
-The current stage of the project consists mainly of a **sentiment classifier** of comments on RMP. To that end, we have also constructed a Google Chrome extension that injects our findings onto RMP's website itself in an appealing manner. We currently have plans to extend this project into topic modeling and text summarization, though these endeavors promise an far greater challenge.
+The current stage of the project consists mainly of a **sentiment classifier** of comments on RMP. To that end, we have also constructed a Google Chrome extension that injects our findings onto RMP's website itself in an appealing manner. We currently have plans to extend this project into topic modeling and text summarization, though these endeavors promise a far greater challenge.
 
 #### What is *sentiment analysis*?
 Sentiment analysis is one of many *classification* tasks in Natural Language Processing (NLP, the use of machine learning on written text data). To be quite honest, a binary classification task (classifying between two categories, like sentiment analysis) is considered by most to be among the simplest possible NLP tasks. However, being that we essentially started from scratch and accomplished everything in ~8 weeks, we are quite proud of our progress.
@@ -79,4 +79,21 @@ From here, the model can finally understand our comments and can start to proper
 
 It didn't take long for us to determine that Multinomial Naive Bayes was the most efficient model (time-wise) that didn't sacrifice too much accuracy. 
 ### Frontend development*
-**mohith and krish add the rest of this lol**
+We needed a way to display our results right on the website without having to run a script on some console, so we decided to use a Chrome extension to 
+display our results more effectively. This was a brand new territory for us and a huge chunk of our time was spent on learning how to configure the 
+extension, reading up on the documentation of Chrome extensions, and making the main JavaScript file to display properly.
+
+##But how did we get the results?
+The results that were collected from the machine learning models were written in Python and they used sklearn and pandas. So, we needed to get those results
+from the python functions to the JavaScript files. Initially, we tried to insert these functions into the website with pyscript, but we had problems 
+with Chrome extension's content policy saying we cannot have dynamically executed code (meaning no running scripts directly on the html code). So, we
+decided to look for Python servers that we could use to get the machine learning functions to talk to our JavaScript file. Then, we found Python Flask,
+which is a small and lightweight web framework. This was enough to get our initial project to work with our Chrome extension.
+
+##Getting Our Data
+Before we could do any sort processing, we had to get the reviews the user would be looking at. This was done with using fetch request in JavaScript that 
+helped us get the data from the RMP database. With that taken care of, we then set up an AJAX post request that allowed us to talk with the Python functions
+written by Dien and Ethan from JavaScript. An AJAX post is a specific type of function found in JQuery that can make POST and GET requests. This allowed us
+to send a message (in this case, the data on the currently opened RMP tab) to the Python functions and receive our results. Then, it was a matter of displaying
+our results in a simple, easy to understand way that should also integrate well with the RMP website.
+
