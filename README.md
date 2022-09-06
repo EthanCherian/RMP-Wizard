@@ -24,9 +24,11 @@ In general, there were three main domains/areas related to programming that we w
 | Frontend development | Krish, Mohith |
 
 ### Web scraping
-Web scraping was used to obtain a good sample of RMP comment and professor data by making HTML requests to the RMP backend. 
+Web scraping was used to obtain large samples of RMP comments and professor data by using Scrapy to make HTML requests to the RMP backend. 
 
-**dien add the rest of this lol**
+The scrape was started over a period of 2 weeks in mid-july during off traffic hours. POST requests were made to the underlying GraphQL database in RMP to collect about 500k professors and 8 million comments. Due to the nature of the scrape, professors added earlier in the site's lifetime would be scraped leading to a dataset with a disproportionate amount of reviews from previous years.
+
+** Insert Graph of Date Distribution Here **
 ### Machine learning
 Machine learning was originally thought to be the main bulk of our project, and, indeed, it did probably end up being the single largest domain we had to tackle. More specifically, the bulk of this project was spent on data science (practice of analyzing our data and attempting to find and explain patterns), but machine learning is a better buzzword.
 
