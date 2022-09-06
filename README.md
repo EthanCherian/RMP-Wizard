@@ -107,5 +107,5 @@ documentation on the parameters we can set, and it produced great charts with mi
 
 | **Before** | **After** |
 |--------|-------|
-| <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/beforeChange.png"> | <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/afterChange.png"> |
+| <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/beforeChange.png"> | <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/beforeChange.png"> |
 
