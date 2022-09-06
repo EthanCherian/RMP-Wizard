@@ -14,7 +14,7 @@ Sentiment analysis is one of many *classification* tasks in Natural Language Pro
 
 Sentiment analysis involves the classification of text as either positive or negative sentiment, based on the words and context of the text. In our case, we look *only* at the text in an RMP review and classify it as conveying either positive or negative sentiment.
 
-## What did working on this project look like?
+# What did working on this project look like?
 In general, there were three main domains/areas related to programming that we were came face-to-face with throughout working on this project. Everyone ended up working a little with everything, but the main contributors to each are noted below.
 
 | *Domain*             | *Contributors*|
@@ -23,14 +23,14 @@ In general, there were three main domains/areas related to programming that we w
 | Machine learning     | Ethan, Dien   |
 | Frontend development | Krish, Mohith |
 
-### Web scraping
+## Web scraping
 Web scraping was used to obtain large samples of RMP comments and professor data by using Scrapy to make HTML requests to the RMP backend. 
 
 The scrape was started over a period of 2 weeks in mid-july during off traffic hours. POST requests were made to the underlying GraphQL database in RMP to collect about 500k professors and 8 million comments. Due to the nature of the scrape, professors added earlier in the site's lifetime would be scraped leading to a dataset with a disproportionate amount of reviews from previous years.
 
 |<img src = "https://github.com/EthanCherian/RMP/blob/master/screenshots/date-dist.png" height = 300, width = 350>|
 
-### Machine learning
+## Machine learning
 Machine learning was originally thought to be the main bulk of our project, and, indeed, it did probably end up being the single largest domain we had to tackle. More specifically, the bulk of this project was spent on data science (practice of analyzing our data and attempting to find and explain patterns), but machine learning is a better buzzword.
 
 Starting from scratch, we had to learn many of the basics of NLP, such as stopword removal, stemming, lemmatization, bag of words, TF-IDF, and Word2Vec. From there, we began to look closer at the data scraped from RMP and perform exploratory data analysis (EDA). The things that were examined included, but were *not* limited to: how many comments used contractions or emoticons, what the date distribution of comments looked like, what the star distribution looked like, prevalence of swear words, why some HTML entities were encoded, common abbreviations, domain-specific words of note, etc.
@@ -81,26 +81,27 @@ From here, the model can finally understand our comments and can start to proper
     * Loses performance dramatically when data is not perfectly clean
 
 It didn't take long for us to determine that Multinomial Naive Bayes was the most efficient model (time-wise) that didn't sacrifice too much accuracy. 
-### Frontend development
+
+## Frontend development
 We needed a way to display our results right on the website without having to run a script on some console, so we decided to use a Chrome extension to 
 display our results more effectively. This was a brand new territory for us and a huge chunk of our time was spent on learning how to configure the 
 extension, reading up on the documentation of Chrome extensions, and making the main JavaScript file to display properly.
 
-## But how did we get the results?
+### But how did we get the results?
 The results that were collected from the machine learning models were written in Python. So, we needed to get those results
 from the python functions to the JavaScript files. Initially, we tried to insert these functions into the website with pyscript, but we had problems 
 with Chrome extension's content policy saying we cannot have dynamically executed code (meaning no running scripts directly on the html code). So, we
 decided to look for Python servers that we could use to get the machine learning functions to talk to our JavaScript file. Then, we found Python Flask,
 which is a small and lightweight web framework. This was enough to get our initial project to work with our Chrome extension.
 
-## Getting Our Data
+### Getting Our Data
 Before we could do any sort processing, we had to get the reviews the user would be looking at. This was done with using fetch request in JavaScript that 
 helped us get the data from the RMP database. With that taken care of, we then set up an AJAX post request that allowed us to talk with the Python functions
 written by Dien and Ethan from JavaScript. An AJAX post is a specific type of function found in JQuery that can make POST and GET requests. This allowed us
 to send a message (in this case, the data on the currently opened RMP tab) to the Python functions and receive our results. Then, it was a matter of displaying
 our results in a simple, easy to understand way that should also integrate well with the RMP website.
 
-## Displaying Our Data
+### Displaying Our Data
 JavaScript has many libraries to display charts, but the one we chose to go with was Chart.js. Chart.js was simple to get started with, as long as we had the
 documentation on the parameters we can set, and it produced great charts with minimal changes. After looking through the documentation, we made it look more appealing, or, at least, that's what we think (you decide with the screenshot below :) ). For the reviews displayed on the page, we went ahead and highlighted the boxes the reviews were in to indicate whether or not our model agreed with the quality rating shown. If the model agreed, then it's either positive (for quality ratings above 3.3 and a green border was added) or negative (for quality ratings below 2.7 and a red border was added). If it disagreed or the quality ratings were between 2.7 and 3.3, then a yellow border was added to indicate an unclear rating. Reviews that fell under the 2.7 - 3.3 range tend to have mixed feelings and depending on how it's worded, the model may not accuratley perdict the sentiment. In addition to this, we used CSS to make the charts line up properly and to follow RMP's structure to make our integrations more visually appealing.
 
