@@ -28,7 +28,7 @@ Web scraping was used to obtain large samples of RMP comments and professor data
 
 The scrape was started over a period of 2 weeks in mid-july during off traffic hours. POST requests were made to the underlying GraphQL database in RMP to collect about 500k professors and 8 million comments. Due to the nature of the scrape, professors added earlier in the site's lifetime would be scraped leading to a dataset with a disproportionate amount of reviews from previous years.
 
-** Insert Graph of Date Distribution Here **
+<img src = "https://github.com/EthanCherian/RMP/blob/master/screenshots/date-dist.png" height = 300, width = 350>
 ### Machine learning
 Machine learning was originally thought to be the main bulk of our project, and, indeed, it did probably end up being the single largest domain we had to tackle. More specifically, the bulk of this project was spent on data science (practice of analyzing our data and attempting to find and explain patterns), but machine learning is a better buzzword.
 
@@ -80,7 +80,7 @@ From here, the model can finally understand our comments and can start to proper
     * Loses performance dramatically when data is not perfectly clean
 
 It didn't take long for us to determine that Multinomial Naive Bayes was the most efficient model (time-wise) that didn't sacrifice too much accuracy. 
-### Frontend development*
+### Frontend development
 We needed a way to display our results right on the website without having to run a script on some console, so we decided to use a Chrome extension to 
 display our results more effectively. This was a brand new territory for us and a huge chunk of our time was spent on learning how to configure the 
 extension, reading up on the documentation of Chrome extensions, and making the main JavaScript file to display properly.
@@ -104,11 +104,7 @@ JavaScript has many libraries to display charts, but the one we chose to go with
 documentation on the parameters we can set, and it produced great charts with minimal changes. After looking through the documentation, we made it look more appealing, or, at least, that's what we think (you decide with the screenshot below :) ). For the reviews displayed on the page, we went ahead and highlighted the boxes the reviews were in to indicate whether or not our model agreed with the quality rating shown. If the model agreed, then it's either positive (for quality ratings above 3.3 and a green border was added) or negative (for quality ratings below 2.7 and a red border was added). If it disagreed or the quality ratings were between 2.7 and 3.3, then a yellow border was added to indicate an unclear rating. Reviews that fell under the 2.7 - 3.3 range tend to have mixed feelings and depending on how it's worded, the model may not accuratley perdict the sentiment. In addition to this, we used CSS to make the charts line up properly and to follow RMP's structure to make our integrations more visually appealing.
 
 
-| **Before** |
-|--------|
-| <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/beforeChange.png"> | 
-
-| **After** |
-|--------|
-| <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/afterChange.png"> |
+| **Before** | **After** |
+|--------|-------|
+| <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/beforeChange.png"> | <img src="https://github.com/EthanCherian/RMP/blob/main/screenshots/afterChange.png"> |
 
