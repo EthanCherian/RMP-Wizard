@@ -28,7 +28,8 @@ Web scraping was used to obtain large samples of RMP comments and professor data
 
 The scrape was started over a period of 2 weeks in mid-july during off traffic hours. POST requests were made to the underlying GraphQL database in RMP to collect about 500k professors and 8 million comments. Due to the nature of the scrape, professors added earlier in the site's lifetime would be scraped leading to a dataset with a disproportionate amount of reviews from previous years.
 
-<img src = "https://github.com/EthanCherian/RMP/blob/master/screenshots/date-dist.png" height = 300, width = 350>
+|<img src = "https://github.com/EthanCherian/RMP/blob/master/screenshots/date-dist.png" height = 300, width = 350>|
+
 ### Machine learning
 Machine learning was originally thought to be the main bulk of our project, and, indeed, it did probably end up being the single largest domain we had to tackle. More specifically, the bulk of this project was spent on data science (practice of analyzing our data and attempting to find and explain patterns), but machine learning is a better buzzword.
 
