@@ -16,10 +16,7 @@ from joblib import dump, load
 import re
 import pandas as pd
 import nltk
-import matplotlib.pyplot as plt
 from nltk import FreqDist
-from sklearn.metrics import accuracy_score, f1_score
-from sklearn.base import BaseEstimator, TransformerMixin
 from preproc import Preproc
 import corpora
 
@@ -33,31 +30,31 @@ def appendResults(docs: list, preds:list, probs:list, sentimentStrings:list):
     sentiments = []
     probsPerSentiment = []
     for comm, pred, prob in zip(docs, preds, probs):
-        print("\033[2;32mComment: \033[0;37m{0}".format(comm))
+#         print("\033[2;32mComment: \033[0;37m{0}".format(comm))
         
         if pred == 0:
-            print("\033[0;31mSentiment: \033[0;31m{0}".format(pred))
+#             print("\033[0;31mSentiment: \033[0;31m{0}".format(pred))
             sentiments.append("Negative")
             conf = round(prob[0] * 100)
             if(conf == 100):
                 conf = 99
             probsPerSentiment.append(int(conf))
-            print("\t\033[0;35mConfidence:\033[1;35m %0.5f%%" % (prob[0] * 100))
+#             print("\t\033[0;35mConfidence:\033[1;35m %0.5f%%" % (prob[0] * 100))
         else:
-            print("\033[0;34mSentiment: \033[0;34m{0}".format(pred))
+#             print("\033[0;34mSentiment: \033[0;34m{0}".format(pred))
             sentiments.append("Positive")
             conf = round(prob[1] * 100)
             if(conf == 100):
                 conf = 99
             probsPerSentiment.append(int(conf))
-            print("\t\033[0;35mConfidence:\033[1;35m %0.5f%%" % (prob[1] * 100))
+#             print("\t\033[0;35mConfidence:\033[1;35m %0.5f%%" % (prob[1] * 100))
         
         print()
         
     sentimentStrings.append(sentiments)
     sentimentStrings.append(probsPerSentiment)
     
-    print(sentimentStrings)
+#     print(sentimentStrings)
     
     
 def freq_ngrams(x, terms=5, n=2):        # function to plot most frequent n-grams
