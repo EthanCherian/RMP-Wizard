@@ -1,0 +1,32 @@
+{
+    "name": "Rate My Professor Wizard",
+    "description": "To predict whether the reviews are positive or negative based on the Rate My Professor dataset",
+    "version": "1.0",
+    "manifest_version": 3,
+    "host_permissions": ["https://www.ratemyprofessors.com/*"],
+    "icons": {
+        "16": "/images/hat_16.png",
+        "32": "/images/hat_32.png",
+        "48": "/images/hat_48.png",
+        "128": "/images/hat_128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_icon": {
+            "16": "/images/hat_16.png",
+            "32": "/images/hat_32.png",
+            "48": "/images/hat_48.png",
+            "128": "/images/hat_128.png"
+        }
+    },
+    "content_scripts": [{
+        "matches": ["https://www.ratemyprofessors.com/*"],
+        "js": ["jquery/jquery-3.6.0.js", "node_modules/chart.js/dist/chart.min.js", "content.js"],
+        "css": ["styling.css"],
+        "run_at": "document_start"
+    }]
+
+
+}
