@@ -26,4 +26,4 @@
 * Aspect-based SA
 * Removing non-English reviews (perhaps requires spaCy)
 * Rather than removing professor names, add a dummy feature like "\_prof\_"
- * unsure how much this will help accuracy, but might make results more consistent
+  * unsure how much this will help accuracy, but might make results more consistent
