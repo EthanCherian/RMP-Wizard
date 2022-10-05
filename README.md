@@ -35,52 +35,28 @@ Machine learning was originally thought to be the main bulk of our project, and,
 
 Starting from scratch, we had to learn many of the basics of NLP, such as stopword removal, stemming, lemmatization, bag of words, TF-IDF, and Word2Vec. From there, we began to look closer at the data scraped from RMP and perform exploratory data analysis (EDA). The things that were examined included, but were *not* limited to: how many comments used contractions or emoticons, what the date distribution of comments looked like, what the star distribution looked like, prevalence of swear words, why some HTML entities were encoded, common abbreviations, domain-specific words of note, etc.
 
+### Preprocessing (or cleaning)
 Following EDA, the next step, traditionally, is to begin working on a machine learning model to perform our determined task. Before an NLP model can be trained, however, we knew that we had to clean the data and remove a lot of noise. This is accomplished through things like dropping invalid (or otherwise unusable) reviews, lemmatization, stopword removal, removing non-alphabetic characters, handling HTML entities, expanding contractions, negation handling, etc. After preprocessing, the data is sufficiently prepared to analyzed by the model, though some work must be done before the model is capable of learning. Indeed, computers are inherently incapable of understanding text, so the review texts must be presented in a format that a computer can understand.
 
 To that end, the bag of words (or TF-IDF) process essentially converts comments into vectors of integer counts (or floats), allowing computers to understand them. Due to the large size of our dataset and its relative lack of cleanliness (given that we did it all ourselves), our vector was practically a massive sparse matrix consisting mostly of zeros. Each column of this matrix is representative of a "feature" in our dataset, which is either a single word or a pair of consecutive words, and each row represents a single comment. To give a sense of how large this matrix could be, in a sample of 300k comments, we could reach well over 1.3 million total features, making our matrix store around 4 billion elements. It's worth noting, that we actually had over 5 million comments
 
-To prevent us from having to whip around such a comically oversized matrix, we used a process called feature selection, where we select the top quarter of the 1.3 million features that are deemed to be the most indicative of sentiment. It determines this correlation by utilizing the $\chi^2$ method of testing the null hypothesis. 
+To prevent us from having to whip around such a comically oversized matrix, we used a process called feature selection, where we select the top quarter of the 1.3 million features that are deemed to be the most indicative of sentiment. It determines this correlation by utilizing the $\chi^2$ method of testing the null hypothesis.
 
-From here, the model can finally understand our comments and can start to properly learn and predict. The next challenge was determining which type of NLP model to use, of which we had a few feasible choices without getting too unnecessarily complex. The (oversimplified) pros and cons of each are outlined below. 
+### Creating our model
+From here, the model can finally understand our comments and can start to properly learn and predict. The next challenge was determining which type of NLP model to use, of which we had a few feasible choices without getting too unnecessarily complex. As we were just starting to dip our toes into data science and machine learning, we didn't want to use any of the mroe advanced ML techniques, such as deep learning or neural networks. Instead, we stuck to their simpler, more beginner friendly alternatives, including:
 
-* Naive Bayes (Multinomial)
-  * Pros: 
-    * Simple to implement
-    * Quite fast
-    * If features are independent, will likely give very good results
-  * Cons: 
-    * In most cases, features are not independent, so results can be quite poor
-    * Zero probability problem - when a new feature is encountered, it is given weight 0 and essentially ignored
-    * Can struggle with continuous variables (irrelevant to us) and imbalanced datasets (very relevant to us)
+* Naive Bayes
 * Logistic Regression
-  * Pros: 
-    * Performs very well when data is linearly separable
-    * Can interpret model coefficients as indicators of feature importance
-    * Less inclined to overfitting, though it can overfit when given higher dimensions of data
-  * Cons:
-    * Requires independent variables be linearly related to logarithmic odds correlated
-    * Tough to obtain complex relationships between variables
-    * Forms linear separations in data, which can lead to signficant loss of clarity
 * Random Forest
-  * Pros:
-    * Robust to outliers
-    * Lower risk of overfitting
-    * Runs efficiently on large datasets
-  * Cons: 
-    * Often biased when dealing with categorical variables (of which we have none)
-    * Not suitable for training on sparse feature sets (like ours)
-    * Slow training (understatement of the century)
 * Support Vector Machine (SVM)
-  * Pros: 
-    * Excels when separation between classes is large
-    * Relatively memory efficient
-    * More effective in higher dimensional spaces (ie. when many features are present)
-  * Cons:
-    * Lacks probabilistic explanation for classifications
-    * Generally unsuitable for large datasets
-    * Loses performance dramatically when data is not perfectly clean
 
-It didn't take long for us to determine that Multinomial Naive Bayes was the most efficient model (time-wise) that didn't sacrifice too much accuracy. 
+Early on, we stuck almost entirely to *Multinomial Naive Bayes* (other than briefly testing out the others), due to its simplicity and ability to run without much action on our end. However, as we progressed, we realized that *Logistic Regression* might actually be strictly superior. This is for a number of reasons, but the two most relevant are:
+
+* Naive Bayes has very little in the way of optimizations we can make to the model itself, so all forward progress had to come from preprocessing. Logistic Regression, on the other hand, has a number of hyperparameters that we could tune to improve our accuracy in classification.
+* The results produced by Naive Bayes were relatively difficult to interpret: beyond the sentiment itself, we couldn't see into the mind of the model, so to speak. By contrast, Logistic Regression provides a few mathematical ways of determining what the model was thinking when it made a particular classification
+  * This point in particular played into our decision to switch, due to a new feature we were looking to implement that would be made a lot easier with this information.
+  
+In the end, we switched to Logistic Regression, performed some hyperparameter tuning, and ended up with our final model. This model ended up with around **92.35%** accuracy in predicting sentiment, an impressive feat all things considered.
 
 ## Frontend development
 We needed a way to display our results right on the website without having to run a script on some console, so we decided to use a Chrome extension to 
@@ -103,7 +79,7 @@ our results in a simple, easy to understand way that should also integrate well 
 
 ### Displaying Our Data
 JavaScript has many libraries to display charts, but the one we chose to go with was Chart.js. Chart.js was simple to get started with, as long as we had the
-documentation on the parameters we can set, and it produced great charts with minimal changes. After looking through the documentation, we made it look more appealing, or, at least, that's what we think (you decide with the screenshot below :) ). For the reviews displayed on the page, we went ahead and highlighted the boxes the reviews were in to indicate whether or not our model agreed with the quality rating shown. If the model agreed, then it's either positive (for quality ratings above 3.3 and a green border was added) or negative (for quality ratings below 2.7 and a red border was added). If it disagreed or the quality ratings were between 2.7 and 3.3, then a yellow border was added to indicate an unclear rating. Reviews that fell under the 2.7 - 3.3 range tend to have mixed feelings and depending on how it's worded, the model may not accuratley perdict the sentiment. In addition to this, we used CSS to make the charts line up properly and to follow RMP's structure to make our integrations more visually appealing.
+documentation on the parameters we can set, and it produced great charts with minimal changes. After looking through the documentation, we made it look more appealing, or, at least, that's what we think (you decide with the screenshot below :) ). For the reviews displayed on the page, we went ahead and highlighted the boxes the reviews were in to indicate whether or not our model agreed with the quality rating shown. If the model agreed, then it's either positive (for quality ratings above 3.3 and a green border was added) or negative (for quality ratings below 2.7 and a red border was added). If it disagreed or the quality ratings were between 2.7 and 3.3, then a yellow border was added to indicate an unclear rating. Reviews that fell under the 2.7 - 3.3 range tend to have mixed feelings and depending on how it's worded, the model may not accurately predict the sentiment. In addition to this, we used CSS to make the charts line up properly and to follow RMP's structure to make our integrations more visually appealing.
 
 
 | **Before** | **After** |
