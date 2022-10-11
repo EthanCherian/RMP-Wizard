@@ -4,7 +4,6 @@ var previousURL = ''
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
-    console.log("here");
     //if a change did occur, then it gets the current active tab
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
         //since this is a background tab, we have to make sure that tab
@@ -16,8 +15,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         
         //makes sure that the tab is defined, tab changed from previous url, and
         //domain is ratemyprofessors.com. The "search" and "ShowRatings" checks
-        //make sure the user is on a prof's reviews site and not in the search
-        //list for similar professor names or home page.
+        //make sure the user is on a prof's reviews site and not in the  home page
+        // or search list for similar professor names.
         if(tabs != null && tabs[0].url != null && tabs[0].url != previousURL &&  
             tabs[0].url.indexOf("https://www.ratemyprofessors.com/") != -1 &&
             tabs[0].url.indexOf("search") == -1 &&
