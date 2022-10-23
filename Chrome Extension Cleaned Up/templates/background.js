@@ -18,9 +18,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         //make sure the user is on a prof's reviews site and not in the  home page
         // or search list for similar professor names.
         if(tabs != null && tabs[0].url != null && tabs[0].url != previousURL &&  
-            tabs[0].url.indexOf("https://www.ratemyprofessors.com/") != -1 &&
-            tabs[0].url.indexOf("search") == -1 &&
-            tabs[0].url.indexOf("ShowRatings") != -1) {
+            tabs[0].url.indexOf("https://www.ratemyprofessors.com/professor?") != -1 &&
+            tabs[0].url.indexOf("search") == -1) {
             previousURL = tabs[0].url;
             chrome.tabs.update({url: tabs[0].url});
         }
