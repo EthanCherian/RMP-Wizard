@@ -358,11 +358,11 @@ function load_ratings_info() {
                 const c = JSON.stringify(dataToProcess);
 
                 //where the magic happens. The ajax function from jquery sends data to
-                //Python's flask server. The Python method called processAndSend will process
+                //Python's flask server. The Python method called process will process
                 //the data using the model built and sends the sentiment values back.
                 //Make sure the python server is running while developing for it to work
                 $.ajax({
-                    url:"http://127.0.0.1:5000/processAndSend",
+                    url:"http://127.0.0.1:5000/process",
                     type:"POST",
                     contentType:"application/json",
                     data:JSON.stringify(c),
