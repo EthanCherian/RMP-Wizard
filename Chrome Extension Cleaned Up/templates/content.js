@@ -221,8 +221,13 @@ function addNewSentiment(els, i, forConfRatings, sentimentsCounter, courseAvg, c
 }
 
 function showProcessedVersion(els, location) {
+    // console.log("tEst");
+    // console.log(location);
+    // console.log(els[location]);
+    // console.log(els[location].querySelector('input[id="proc_button"]'));
     
     if(els[location].querySelector('input[id="proc_button"]').checked) {
+        // console.log("checked");
         var original = els[location].querySelector('div[class*="Comments__StyledComments"]');
         var clone = original.cloneNode(true);
         clone.className = "processedReview insert_proc_review";
@@ -245,17 +250,21 @@ function showProcessedVersion(els, location) {
 
         var wordsToHighlight = sentiments[5][sentimentsCounter];
         
-        var modInnerHTML = clone.innerHTML + ' ';
+        var modInnerHTML = ' ' + clone.innerHTML + ' ';
+        console.log(wordsToHighlight.length);
         for(var i = 0; i < wordsToHighlight.length; i++) {
+            console.log(wordsToHighlight[i]);
             modInnerHTML = modInnerHTML.replace(' ' + wordsToHighlight[i] + ' ', ' <span class="highlight">' + wordsToHighlight[i] + '</span> ');
+            // console.log(modInnerHTML);
         }
-        clone.innerHTML = modInnerHTML;
+        clone.innerHTML = modInnerHTML.substring(1);
         // var addProcessedString = '<div class="processedReview">' + sentiments[4][comments.length-1-location] + '</div>';
 
         var locateSlider = els[location].querySelector('div[class="our_info"]');
         locateSlider.insertAdjacentElement('afterend', clone);
     }
     else {
+        // console.log("not checked");
         els[location].querySelector('div[class="processedReview insert_proc_review"]').remove();
     }
 }
@@ -329,6 +338,7 @@ function load_ratings_info() {
                     return a.node.date.localeCompare(b.node.date);
                 });
 
+                // console.log(nodes);
 
                 for(var i = 0; i < nodes.length; i++) {
                     var currentNode = nodes[i].node;
@@ -342,12 +352,14 @@ function load_ratings_info() {
                         courseHashMap.set(currentNode.class, [currentNode.clarityRating, 1]);
                     }
                 }
+                // console.log(courseHashMap);
 
                 for(var i = 0; i < nodes.length; i++) {
                     var txt = document.createElement("textarea");
                     txt.innerHTML = nodes[i].node.comment;
                     comments.push(txt.value);
                 }
+                // console.log(comments[16]);
 
                 var dataToProcess = [];
 
@@ -358,11 +370,11 @@ function load_ratings_info() {
                 const c = JSON.stringify(dataToProcess);
 
                 //where the magic happens. The ajax function from jquery sends data to
-                //Python's flask server. The Python method called process will process
+                //Python's flask server. The Python method called processAndSend will process
                 //the data using the model built and sends the sentiment values back.
                 //Make sure the python server is running while developing for it to work
                 $.ajax({
-                    url:"http://127.0.0.1:5000/process",
+                    url:"http://127.0.0.1:5000/processAndSend",
                     type:"POST",
                     contentType:"application/json",
                     data:JSON.stringify(c),
@@ -371,6 +383,9 @@ function load_ratings_info() {
                         //sentiments is filled with either "Positive" or "Negative"
                         sentiments = JSON.parse(response);
                         sentiments.push(comments);
+                        // console.log(sentiments);
+
+                        
 
                         set_predictions();
 
@@ -498,11 +513,18 @@ function load_ratings_info() {
 
 function set_predictions() {
     $(document).ready(function() {
+        // showProcessedVersion();
+        // console.log("better");
+        // console.log(allReviewsSentiments);
         //all of the reviews we want are in this partially-matched div tag
         var els = document.querySelectorAll('div[class*="Rating__RatingInfo"]');
         
         var reloadSentimentsOrNot = false;
         var checkFilter = document.getElementsByClassName(' css-n2irg-placeholder')[0].textContent;
+
+        // console.log(checkFilter);
+        // console.log(prevFilter);
+        // console.log("break");
 
         //check if filter changed
         if(checkFilter != prevFilter) {
@@ -510,13 +532,16 @@ function set_predictions() {
             prevFilter = checkFilter;
         }
         
+        // console.log(checkFilter);
+        // console.log(prevFilter);
+
         //adds Positive or Negative for each review on the ratemyprofessor tab for now
         var sentimentsCounter = sentiments[0].length-1;
         var forConfRatings = document.querySelectorAll('div[class*="RatingValues__StyledRatingValues"]');
         var getOrigRating = document.querySelectorAll('div[class*="CardNumRating__CardNumRatingNumber"]');
         var getBoxes = document.querySelectorAll('div[class*="Rating__RatingBody"]');
+        // console.log(els.length);
 
-        
         for(var i = 0; i < els.length; i++) {
             //used to place the results from the model
             var getLine = els[i].querySelector('div[class*="EmotionLabel__StyledEmotionLabel"]');
@@ -524,11 +549,16 @@ function set_predictions() {
             // var checkSentiment = els[i].querySelector('div[class="insertedSentiment sentiment"]');
             var checkSentiment = els[i].querySelector('div[class="add_slider"]');
             var getBox = els[i].querySelector('div[class*="Rating__RatingBody"]');
-            
+
             //to get course average for each course the professor teaches
             var course = els[i].querySelector('div[class*="RatingHeader__StyledClass"]').textContent.trim();
+            // console.log(course.trim());
+            // console.log('CSCE221');
             var courseSpecs = courseHashMap.get(course);
+            // console.log(courseSpecs);
+            // console.log(courseHashMap.get('CSCE221'));
             var courseAvg = (Math.round( (courseSpecs[0] / courseSpecs[1] ) * 10) / 10).toFixed(1);
+            // console.log(courseAvg);
 
             
             var rating = parseFloat(getOrigRating[i*2].innerHTML);  
@@ -581,6 +611,10 @@ function set_predictions() {
             getBoxes[i].style.borderWidth = '5px';
 
 
+            // console.log(reloadSentimentsOrNot);
+            // console.log(els[i].querySelector('div[class*="Comments__StyledComments"]').textContent);
+            // console.log(sentimentsCounter);
+
             
 
             if(reloadSentimentsOrNot === true) {
@@ -623,11 +657,13 @@ $(document).ready(function() {
     //clicks the "Load More Ratings" button
     let RMPList = document.getElementById('ratingsList');
 
+    // console.log(dropDownMenu);
 
 
     observer = new MutationObserver(RMPCallback);
 
     function RMPCallback(mutations) {
+        // console.log("in 1");
         set_predictions();
     }
 
