@@ -1,14 +1,6 @@
 import Box from "@mui/material/Box/Box";
 import Stack from "@mui/material/Stack/Stack";
-
-export type ReviewInfoProps = {
-    isForCredit?: boolean;
-    attendanceMandatory?: string;
-    wouldTakeAgain?: number;
-    grade?: string;
-    textbookUse?: number;
-    isForOnlineClass?: boolean;
-}
+import { ReviewInfoProps } from "../../../types/ReviewTypes";
 
 type StyledInfoProps = {
     info: string;

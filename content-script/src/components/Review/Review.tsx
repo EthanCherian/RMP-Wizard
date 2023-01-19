@@ -1,19 +1,13 @@
 import Paper from '@mui/material/Paper/Paper';
 import Stack from '@mui/material/Stack/Stack';
 import Typography from '@mui/material/Typography/Typography';
-import ReviewFooter, { FooterProps } from './ReviewFooter';
-import ReviewHeader, { HeaderProps } from './ReviewHeader';
+import ReviewFooter from './ReviewFooter';
+import ReviewHeader from './ReviewHeader';
 import ReviewInfo from './ReviewInfo';
-import ReviewTags, { TagProps } from './ReviewTags';
-import ReviewValues, { RatingProps } from './ReviewValues';
-import { ReviewInfoProps } from './ReviewInfo';
+import ReviewTags from './ReviewTags';
+import ReviewValues from './ReviewValues';
 import ReviewComment from './ReviewComment';
-
-type Comment = {
-    comment: string;
-}
-
-export type ReviewProps = RatingProps & HeaderProps & ReviewInfoProps & FooterProps & TagProps & Comment;
+import { ReviewProps } from '../../../types/ReviewTypes';
 
 export default function Review(review: ReviewProps) {
 

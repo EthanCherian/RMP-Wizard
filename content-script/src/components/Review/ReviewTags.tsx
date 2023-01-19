@@ -3,10 +3,6 @@ import Stack from '@mui/material/Stack/Stack';
 
 import {styled} from '@mui/material/styles';
 
-export type TagProps = {
-    ratingTags: string;
-}
-
 const Tag = styled(Box)({
     textTransform: 'uppercase',
     borderRadius: '14.5px',
@@ -18,7 +14,7 @@ const Tag = styled(Box)({
     fontSize: '14px'
 });
 
-export default function ReviewTags({ratingTags}: TagProps) {
+export default function ReviewTags({ratingTags}: {ratingTags: string}) {
     return (
         (ratingTags !== "") ?
             <Stack direction='row'>

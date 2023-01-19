@@ -1,26 +1,19 @@
 import Stack from "@mui/material/Stack/Stack";
-import Review, { ReviewProps } from "./Review/Review";
-import { FooterProps } from "./Review/ReviewFooter";
+import Review from "./Review/Review";
+import { ReviewPlus, ReviewRMP, ReviewElement } from "../../types/ReviewTypes";
 
-type NodeExtraInfo = {
-    legacyId: number;
-    helpfulRating: number;
-    clarityRating: number;
-  }
-
-export type ReviewNode = {
-    node: Exclude<ReviewProps & NodeExtraInfo, FooterProps['teacherId']>;
+const areReviewsRMP = (reviews: ReviewElement[]): reviews is ReviewRMP[] => {
+    return reviews[0].hasOwnProperty('node');
 }
 
-export type ReviewListProps = {
-    reviews: ReviewNode[];
-    teacherId: number;
+const areReviewsPlus = (reviews: ReviewElement[]): reviews is ReviewPlus[] => {
+    return reviews[0].hasOwnProperty('qualityRating');
 }
 
-export default function ReviewList({ reviews, teacherId }: ReviewListProps) {
-    return (
-        <Stack spacing={3}>
-            {reviews && reviews.map(({node}: ReviewNode, index) => (
+function determineReturn(reviews: ReviewElement[], teacherId: number) {
+    if(areReviewsRMP(reviews)){
+        return (
+            reviews.map(({node}: ReviewRMP, index) => (
                 <Review 
                     key={index}
                     {...node}
@@ -28,7 +21,27 @@ export default function ReviewList({ reviews, teacherId }: ReviewListProps) {
                     teacherId={teacherId}
                     ratingId={node.legacyId}
                 />
-            ))}
+            ))
+        );
+    } else if(areReviewsPlus(reviews)){
+        return (
+            reviews.map((review: ReviewPlus, index) => (
+                <Review 
+                    key={index}
+                    {...review}
+                    qualityRating={ parseFloat(review.qualityRating) }
+                    teacherId={teacherId}
+                    ratingId={review.Id}
+                />
+            ))
+        )
+    }
+}
+
+export default function ReviewList({ reviews, teacherId }: { reviews: ReviewElement[], teacherId: number }) {
+    return (
+        <Stack spacing={3}>
+            {(reviews && reviews.length) && determineReturn(reviews, teacherId)}
             {/* <Review {...{
                 qualityRating: 5.0,
                 difficultyRating: 2.5,
