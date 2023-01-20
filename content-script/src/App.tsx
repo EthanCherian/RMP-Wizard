@@ -6,27 +6,13 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
 import { useState, useEffect } from 'react';
 import ReviewList from './components/ReviewList';
 import { ReviewElement, ReviewRMP } from './types/ReviewTypes';
-
-type CourseCode = {
-  courseCount: number;
-  courseName: string;
-};
-
-type RatingDistribution = {
-  r5: number;
-  r4: number;
-  r3: number;
-  r2: number;
-  r1: number;
-  total: number;
-};
+import { CourseCode, RatingDistribution } from './types/DropdownTypes';
+import { CourseDropdown } from './components/Dropdowns/CourseDropdown';
+import { RatingDropdown } from './components/Dropdowns/RatingDropdown';
 
 const json = {
   data: {
@@ -776,40 +762,8 @@ function App() {
       </Box>
       <Stack>
         <Stack direction='row' spacing={2} mb={2}>
-          <FormControl size='small'>
-            <Select
-              value={courseFilter}
-              onChange={(e: SelectChangeEvent) => {handleChange(e.target.value)}}
-            >
-              <MenuItem value="all">All Courses</MenuItem>
-              {courseCodes && courseCodes.map((course: CourseCode) => (
-                <MenuItem 
-                  key={course.courseName}
-                  value={course.courseName}
-                >
-                  {course.courseName} {ratingFilter === "all" && `(${course.courseCount})`}
-                </MenuItem>
-              ))}
-                
-            </Select>
-          </FormControl>
-          <FormControl size='small'>
-            <Select
-              value={ratingFilter}
-              onChange={(e: SelectChangeEvent) => {handleChange(undefined, e.target.value)}}
-              >
-              <MenuItem value="all">All Ratings</MenuItem>
-              {ratingsDistributions && ratings.map((rating: string) => {
-                const ratingCount = ratingsDistributions[rating as keyof RatingDistribution];
-                return (ratingCount > 0) ? 
-                  <MenuItem key={rating} value={rating}>
-                    {rating} {courseFilter === "all" && `(${ratingCount})`}
-                  </MenuItem> 
-                  : 
-                  null
-              })}
-            </Select>
-          </FormControl>
+          {CourseDropdown(courseFilter, ratingFilter, courseCodes, handleChange)}
+          {RatingDropdown(ratingFilter, courseFilter, ratingsDistributions, handleChange)}
         </Stack>
         <ReviewList reviews={reviewList} teacherId={teacherId} />
         {nextKey && (<Button onClick={() => {reviewQuery(courseFilter, ratingFilter, )}}> Load More </Button>)}
