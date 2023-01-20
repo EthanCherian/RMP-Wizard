@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography/Typography';
 
 import {green, yellow, red} from '@mui/material/colors';
 import {styled} from '@mui/material/styles';
-import { RatingProps } from '../../../types/ReviewTypes';
+import { RatingProps } from '../../types/ReviewTypes';
 
 type QualityProp = {
     qualityRating: number;

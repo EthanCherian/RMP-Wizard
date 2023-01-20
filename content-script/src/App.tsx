@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { useState, useEffect } from 'react';
 import ReviewList from './components/ReviewList';
-import { ReviewElement, ReviewRMP } from '../types/ReviewTypes';
+import { ReviewElement, ReviewRMP } from './types/ReviewTypes';
 
 type CourseCode = {
   courseCount: number;
@@ -693,7 +693,7 @@ const getCursorIdHelper = () => {
 
 function App() {
   const teacherId = Number("something/tid=609101".match(/\d+/));
-  //   const teacherId = Number((window.location.toString()).match(/\d+/));
+    // const teacherId = Number((window.location.toString()).match(/\d+/));
   const cursorId = "VGVhY2hlci02MDkxMDE=";
 //   const cursorId = getCursorIdHelper();
   const [ courseFilter, setCourseFilter ] = useState("all");
@@ -711,7 +711,6 @@ function App() {
     // setReviewList(REVIEWS);
     // setCourseCodes(data['courseCodes']);
     // setRatingDistributions(data['ratingsDistribution']);
-    // getCursorIdHelper();
     initialQuery();
   }, []);
 

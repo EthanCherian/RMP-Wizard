@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box/Box";
 import Stack from "@mui/material/Stack/Stack";
-import { ReviewInfoProps } from "../../../types/ReviewTypes";
+import { ReviewInfoProps } from "../../types/ReviewTypes";
 
 type StyledInfoProps = {
     info: string;

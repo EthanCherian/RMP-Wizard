@@ -2,7 +2,7 @@ import Box from "@mui/material/Box/Box";
 import Stack from "@mui/material/Stack/Stack";
 import {green, yellow, red} from '@mui/material/colors';
 import dayjs from 'dayjs';
-import { HeaderProps } from '../../../types/ReviewTypes';
+import { HeaderProps } from '../../types/ReviewTypes';
 
 type QualityProp = {
     qualityRating: number;

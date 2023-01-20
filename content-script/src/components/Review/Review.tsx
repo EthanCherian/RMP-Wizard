@@ -7,7 +7,7 @@ import ReviewInfo from './ReviewInfo';
 import ReviewTags from './ReviewTags';
 import ReviewValues from './ReviewValues';
 import ReviewComment from './ReviewComment';
-import { ReviewProps } from '../../../types/ReviewTypes';
+import { ReviewProps } from '../../types/ReviewTypes';
 
 export default function Review(review: ReviewProps) {
 

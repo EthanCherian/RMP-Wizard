@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack/Stack";
 import Review from "./Review/Review";
-import { ReviewPlus, ReviewRMP, ReviewElement } from "../../types/ReviewTypes";
+import { ReviewPlus, ReviewRMP, ReviewElement } from "../types/ReviewTypes";
 
 const areReviewsRMP = (reviews: ReviewElement[]): reviews is ReviewRMP[] => {
     return reviews[0].hasOwnProperty('node');

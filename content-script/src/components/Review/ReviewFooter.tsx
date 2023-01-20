@@ -3,7 +3,7 @@ import Box from '@mui/material/Box/Box';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import OutlinedFlagIcon from '@mui/icons-material/OutlinedFlag';
-import { FooterProps } from '../../../types/ReviewTypes';
+import { FooterProps } from '../../types/ReviewTypes';
 
 export default function ReviewFooter(props: FooterProps) {
     return (
