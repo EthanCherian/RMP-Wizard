@@ -1,5 +1,5 @@
 # Rate My Professors Project :)
-A project to advance our Natural Language Processing skills using a practical, real-world dataset: the comments on Rate My Professor.
+A project to advance our Natural Language Processing skills using a practical, real-world dataset: the comments on Rate My Professor. Here's a link to a quick video to showcase our [extension.](https://drive.google.com/file/d/1jrBeuaZ0NQyXyRWPuCV8DuvFsApgXPGp/view?usp=sharing)
 
 ## Who are we?
 We are students at Texas A&M University, mostly studying Computer Science, who decided to make use of our summer and create something quite unique. 
